@@ -5,14 +5,16 @@ function Toast({ children, remove, status }) {
   removeRef.current = remove;
 
   useEffect(() => {
-    const duration = 5000;
+    const duration = 50000;
     const id = setTimeout(() => removeRef.current(), duration);
     return () => clearTimeout(id);
   }, []);
 
   return (
     <div className={`toast toast-${status}`}>
-      <div className="toast__text">{children}</div>
+      <div className="toast__text">
+        {children}
+      </div>
       <div>
         <button onClick={remove} className="toast__close-btn">
           x
