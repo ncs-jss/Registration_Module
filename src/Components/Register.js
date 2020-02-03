@@ -15,7 +15,6 @@ const Register = () => {
 
   const handleSubmit = e => {
     const regData = { name, email, mobile, admissionNo };
-    console.log(regData);
     axiosPost("reg/", regData, false)
       .then(res => {
         toast.add("User Added Successfully!");
@@ -24,13 +23,12 @@ const Register = () => {
         setmobile("");
         setadmissionNo("");
         setresData(res.data.data.data);
-        console.log(res.data.data.data);
         setshowId(true);
       })
       .catch(err => {
         toast.add("Something went wrong while registering user", "fail");
-        console.log(err);
         setshowId(false);
+        console.log(err);
       });
     e.preventDefault();
   };
@@ -39,13 +37,6 @@ const Register = () => {
     ? <Fragment>
         <h1 className="text-center">Zeal ID</h1>
         <div className="id-box">
-          {resData.zealID
-            ? <p>
-                Zeal ID: <span>{resData.zealID}</span>
-              </p>
-            : <p>
-                ZO ID: <span>{resData.tempID}</span>
-              </p>}
           <p>
             Name: <span>{resData.name}</span>
           </p>
@@ -55,10 +46,17 @@ const Register = () => {
           <p>
             Admission Number: <span>{resData.admissionNo}</span>
           </p>
+          {resData.zealID
+            ? <p>
+                Zeal ID: <span>{resData.zealID}</span>
+              </p>
+            : <p>
+                Temp ID: <span>{resData.tempID}</span>
+              </p>}
         </div>
       </Fragment>
     : <form className="end-user-form" onSubmit={handleSubmit}>
-        <h2 className="text-center">Enter your Details Here!</h2>
+        <h2 className="text-center">Register for Zealicon 2020</h2>
         <div className="form-group">
           <input
             type="text"
@@ -82,6 +80,8 @@ const Register = () => {
             type="tel"
             className="form-control"
             placeholder="Mobile number (10 digit)"
+            minLength="10"
+            maxLength="10"
             onChange={e => setmobile(e.target.value)}
             required
           />

@@ -6,7 +6,6 @@
 body {
   box-sizing: border-box;
   margin: 0;
-  padding: 20px;
   overflow-x: hidden;
   font-family: proximaNova, sans-serif;
   height: 100vh;
@@ -70,4 +69,123 @@ body {
 
 .id-box p {
   margin: 4px;
+}
+
+/* navbar */
+header {
+  overflow: hidden;
+  color: black;
+  padding: 3px 10px;
+  box-shadow: 0 8px 6px -6px #bcb9b9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+header a {
+  display: block;
+  margin: 0 8px;
+  color: #3507f3;
+  text-decoration: none;
+}
+
+header button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+header a:hover,
+header label:hover {
+  color: #030fd0;
+}
+
+header label {
+  float: right;
+  padding: 10px 4px;
+  color: #456ef3;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+header label:after {
+  content: "\2261";
+  font-size: 1.8em;
+}
+
+.logo {
+  float: left;
+  font-weight: bold;
+  font-size: 1.5rem;
+  display: flex !important;
+  align-items: center;
+}
+
+.header-logo {
+  width: 100px;
+}
+
+nav {
+  float: right;
+  max-height: 0;
+  width: 100%;
+  transition: max-height 0.3s;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+}
+
+nav li {
+  display: block;
+}
+
+nav a {
+  width: 100%;
+}
+
+#nav {
+  display: none;
+}
+
+#nav:checked ~ nav {
+  max-height: 200px;
+}
+
+@media only screen and (min-width: 700px) {
+  header label {
+    display: none;
+  }
+
+  nav {
+    width: auto;
+    max-height: none;
+  }
+
+  nav ul {
+    padding: 0;
+    padding-right: 10px;
+  }
+
+  nav li {
+    display: inline-block;
+    text-align: left;
+  }
+
+  header nav a {
+    display: inline-block;
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  header label {
+    padding: 4px;
+  }
 }
