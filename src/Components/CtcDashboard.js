@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { axiosPost } from "../axios";
 import { useToast } from "../utils/Toast";
 
-const AdminDashboard = () => {
+const CtcDashboard = props => {
   const toast = useToast();
 
   const [name, setname] = useState("");
@@ -15,12 +15,11 @@ const AdminDashboard = () => {
     const regData = { name, email, password, passwordConfirm };
     axiosPost("users/", regData, true)
       .then(res => {
-        toast.add("User Added Successfully!");
         setname("");
         setemail("");
         setpassword("");
         setpasswordConfirm("");
-        console.log(res);
+        props.history.push("/security");
       })
       .catch(err => {
         toast.add("Something went wrong while registering user", "fail");
@@ -32,7 +31,7 @@ const AdminDashboard = () => {
   return (
     <div>
       <form className="end-user-form" onSubmit={handleSubmit}>
-        <h2 className="text-center">Register Core Team Member</h2>
+        <h2 className="text-center">Register Security Team Member</h2>
         <div className="form-group">
           <input
             type="text"
@@ -77,4 +76,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default CtcDashboard;

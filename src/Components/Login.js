@@ -11,10 +11,18 @@ const Login = props => {
     const loginData = { email, password };
     axiosPost("users/login/", loginData, false)
       .then(res => {
-        console.log(res.data);
+        const role = res.data.data.user.role;
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("role", role);
         props.setState(1);
-        props.history.push("/admin");
+        // logic to be changed
+        if (role === "admin") {
+          props.history.push("/admin");
+        } else if (role === "user") {
+          props.history.push("/coreteam");
+        } else if (role === "security") {
+          props.history.push("/security");
+        }
       })
       .catch(err => {
         props.setState(0);

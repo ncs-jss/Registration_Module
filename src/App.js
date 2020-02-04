@@ -8,6 +8,8 @@ import Login from "./Components/Login";
 import SearchId from "./Components/SearchId";
 import AdminDashboard from "./Components/AdminDashboard";
 import PrivateRoute from "./Components/PrivateRoute";
+import CtcDashboard from "./Components/CtcDashboard";
+import SecurityDashboard from "./Components/SecurityDashboard";
 
 const App = () => {
   const [userState, setuserState] = useState(0);
@@ -33,6 +35,12 @@ const App = () => {
             />
             <Route path="/search" exact component={SearchId} />
             <PrivateRoute path="/admin" exact component={AdminDashboard} />
+            <PrivateRoute path="/coreteam" exact component={CtcDashboard} />
+            <PrivateRoute
+              path="/security"
+              exact
+              component={SecurityDashboard}
+            />
           </Switch>
         </div>
       </Router>

@@ -1,19 +1,11 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import { axiosPost } from "../axios";
 
 const Navbar = ({ state, setState }) => {
   const logOut = () => {
-    axiosPost("users/logout/", null, true)
-      .then(res => {
-        console.log(res.data);
-        setState(0);
-        localStorage.clear();
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    setState(0);
+    localStorage.clear();
   };
 
   return (
@@ -28,6 +20,13 @@ const Navbar = ({ state, setState }) => {
       <nav>
         <ul>
           <li>
+            <Link to="/search">
+              <button className="btn btn-outline-info rounded-pill">
+                Search
+              </button>
+            </Link>
+          </li>
+          <li>
             {state
               ? <button
                   className="btn btn-outline-info rounded-pill"
@@ -40,13 +39,6 @@ const Navbar = ({ state, setState }) => {
                     Login
                   </button>
                 </Link>}
-          </li>
-          <li>
-            <Link to="/search">
-              <button className="btn btn-outline-info rounded-pill">
-                Search
-              </button>
-            </Link>
           </li>
         </ul>
       </nav>

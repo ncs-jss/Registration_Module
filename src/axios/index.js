@@ -10,7 +10,7 @@ export const axiosPost = (url, data = null, sendToken = true) => {
       "Content-Type": "application/json;charset=UTF-8"
     }
   };
-  if (sendToken) options["headers"]["Authorization"] = getToken();
+  if (sendToken) options["headers"]["Authorization"] = `Bearer ${getToken()}`;
   return axios.post(BASE_URL + url, data, options);
 };
 

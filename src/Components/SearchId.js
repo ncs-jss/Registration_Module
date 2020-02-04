@@ -16,7 +16,6 @@ const SearchId = () => {
   const searchInput = e => {
     axiosGet(`reg/${search}`)
       .then(res => {
-        console.log(res.data.data.registraions);
         setres(res.data.data.registraions);
         document.getElementById("search-input").value = "";
       })
@@ -61,7 +60,7 @@ const SearchId = () => {
                 </p>
               : <p>
                   Temp ID: <span>{item.tempID}</span>
-                </p>}git
+                </p>}
           </div>
         );
       })}
