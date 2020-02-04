@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { axiosPost } from "../axios";
 
@@ -15,20 +15,19 @@ const Login = props => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("role", role);
         props.setState(1);
-        // logic to be changed
-        if (role === "admin") {
-          props.history.push("/admin");
-        } else if (role === "user") {
-          props.history.push("/coreteam");
-        } else if (role === "security") {
-          props.history.push("/security");
-        }
+        props.history.push("/dashboard");
       })
       .catch(err => {
         props.setState(0);
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      props.history.push("/dashboard");
+    }
+  }, []);
 
   return (
     <div>

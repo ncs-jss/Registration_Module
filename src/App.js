@@ -13,12 +13,17 @@ import SecurityDashboard from "./Components/SecurityDashboard";
 
 const App = () => {
   const [userState, setuserState] = useState(0);
+  const [role, setrole] = useState("");
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      setuserState(1);
-    }
-  }, []);
+  useEffect(
+    () => {
+      if (localStorage.getItem("token") && localStorage.getItem("role")) {
+        setuserState(1);
+        setrole(localStorage.getItem("role"));
+      }
+    },
+    [userState, role]
+  );
 
   return (
     <div className="App">
@@ -34,12 +39,13 @@ const App = () => {
                 <Login state={userState} setState={setuserState} {...props} />}
             />
             <Route path="/search" exact component={SearchId} />
-            <PrivateRoute path="/admin" exact component={AdminDashboard} />
-            <PrivateRoute path="/coreteam" exact component={CtcDashboard} />
             <PrivateRoute
-              path="/security"
-              exact
-              component={SecurityDashboard}
+              path="/dashboard"
+              component={
+                role === "admin"
+                  ? AdminDashboard
+                  : role === "user" ? CtcDashboard : SecurityDashboard
+              }
             />
           </Switch>
         </div>
