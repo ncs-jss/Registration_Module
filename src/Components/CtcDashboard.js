@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-import { axiosGet, axiosPost } from "../axios";
+import { axiosPost } from "../axios";
 import { useToast } from "../utils/Toast";
+import SearchId from "./SearchId";
 
 const CtcDashboard = props => {
   const toast = useToast();
@@ -10,9 +11,7 @@ const CtcDashboard = props => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [passwordConfirm, setpasswordConfirm] = useState("");
-  const [search, setsearch] = useState("");
   const [layout, setlayout] = useState(0);
-  const [res, setres] = useState([]);
 
   const handleSubmit = e => {
     const regData = { name, email, password, passwordConfirm };
@@ -27,19 +26,6 @@ const CtcDashboard = props => {
       .catch(err => {
         toast.add("Something went wrong while registering user", "fail");
         console.log(err);
-      });
-    e.preventDefault();
-  };
-
-  const handleSearch = e => {
-    axiosGet(`reg/${search}`)
-      .then(res => {
-        setres(res.data.data.registraions);
-        document.getElementById("search-input").value = "";
-      })
-      .catch(err => {
-        console.log(err);
-        toast.add("No Registration found!!!", "fail");
       });
     e.preventDefault();
   };
@@ -112,42 +98,7 @@ const CtcDashboard = props => {
             </button>
           </form>
         : <div className="mt-3">
-            <form className="input-group mb-3" onSubmit={handleSearch}>
-              <input
-                type="text"
-                id="search-input"
-                className="form-control"
-                placeholder="Search..."
-                onChange={e => setsearch(e.target.value)}
-              />
-              <div className="input-group-append">
-                <button className="btn btn-outline-info" type="submit">
-                  Search
-                </button>
-              </div>
-            </form>
-            {res.map((item, index) => {
-              return (
-                <div className="id-box mt-4" key={index}>
-                  <p>
-                    Name: <span>{item.name}</span>
-                  </p>
-                  <p>
-                    Email: <span>{item.email}</span>
-                  </p>
-                  <p>
-                    Admission Number: <span>{item.admissionNo}</span>
-                  </p>
-                  {item.zealID
-                    ? <p>
-                        Zeal ID: <span>{item.zealID}</span>
-                      </p>
-                    : <p>
-                        Temp ID: <span>{item.tempID}</span>
-                      </p>}
-                </div>
-              );
-            })}
+            <SearchId />
           </div>}
     </div>
   );
