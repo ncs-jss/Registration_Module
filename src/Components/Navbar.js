@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -28,12 +28,19 @@ const Navbar = ({ state, setState }) => {
           </li>
           <li>
             {state
-              ? <button
-                  className="btn btn-outline-info rounded-pill"
-                  onClick={logOut}
-                >
-                  Logout
-                </button>
+              ? <Fragment>
+                  <Link to="/Dashboard">
+                    <button className="btn btn-outline-info rounded-pill">
+                      Dashboard
+                    </button>
+                  </Link>
+                  <button
+                    className="btn btn-outline-info rounded-pill"
+                    onClick={logOut}
+                  >
+                    Logout
+                  </button>
+                </Fragment>
               : <Link to="/login">
                   <button className="btn btn-outline-info rounded-pill">
                     Login

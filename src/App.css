@@ -85,7 +85,7 @@ header {
 
 header a {
   display: block;
-  margin: 0 8px;
+  margin-right: 8px;
   color: #3507f3;
   text-decoration: none;
 }
