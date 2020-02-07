@@ -44,7 +44,7 @@ const App = () => {
               component={
                 role === "admin"
                   ? AdminDashboard
-                  : role === "user" ? CtcDashboard : SecurityDashboard
+                  : role === "core-team" ? CtcDashboard : SecurityDashboard
               }
             />
           </Switch>

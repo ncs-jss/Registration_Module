@@ -4,7 +4,7 @@ import { axiosPost } from "../axios";
 import { useToast } from "../utils/Toast";
 import SearchId from "./SearchId";
 
-const CtcDashboard = props => {
+const CtcDashboard = () => {
   const toast = useToast();
 
   const [name, setname] = useState("");
@@ -21,7 +21,8 @@ const CtcDashboard = props => {
         setemail("");
         setpassword("");
         setpasswordConfirm("");
-        props.history.push("/security");
+        toast.add("User Added Successfully!");
+        console.log(res);
       })
       .catch(err => {
         toast.add("Something went wrong while registering user", "fail");
@@ -56,7 +57,7 @@ const CtcDashboard = props => {
       </div>
       {layout
         ? <form className="end-user-form mt-3" onSubmit={handleSubmit}>
-            <h2 className="text-center">Register Security Team Member</h2>
+            <h2 className="text-center mb-3">Register Security Team Member</h2>
             <div className="form-group">
               <input
                 type="text"

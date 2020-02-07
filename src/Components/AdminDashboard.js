@@ -20,11 +20,9 @@ const AdminDashboard = () => {
         setemail("");
         setpassword("");
         setpasswordConfirm("");
-        console.log(res);
       })
       .catch(err => {
         toast.add("Something went wrong while registering user", "fail");
-        console.log(err);
       });
     e.preventDefault();
   };

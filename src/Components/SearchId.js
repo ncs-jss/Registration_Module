@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useToast } from "../utils/Toast";
-import { axiosGet } from "../axios";
+import { axiosGet, axiosPost } from "../axios";
 
 const SearchId = () => {
   const toast = useToast();
@@ -13,6 +13,7 @@ const SearchId = () => {
     setsearch(e.target.value);
   };
 
+  // logic to search input
   const searchInput = e => {
     axiosGet(`reg/${search}`)
       .then(res => {
@@ -24,6 +25,28 @@ const SearchId = () => {
         toast.add("No Registration found!!!", "fail");
       });
     e.preventDefault();
+  };
+
+  // logic to approve payment
+  const approvePayment = tempID => {
+    const data = { tempID };
+    axiosPost("reg/approve", data, true)
+      .then(res => {
+        toast.add("Payment Approved!!!");
+        console.log(res);
+        axiosGet(`reg/${search}`)
+          .then(res => {
+            setres(res.data.data.registraions);
+            document.getElementById("search-input").value = "";
+          })
+          .catch(err => {
+            setres([]);
+            toast.add("No Registration found!!!", "fail");
+          });
+      })
+      .catch(err => {
+        toast.add("Something went wrong!!!");
+      });
   };
 
   return (
@@ -61,6 +84,14 @@ const SearchId = () => {
               : <p>
                   Temp ID: <span>{item.tempID}</span>
                 </p>}
+            {localStorage.getItem("role") === "core-team" && !item.zealID
+              ? <button
+                  className="btn btn-primary"
+                  onClick={() => approvePayment(item.tempID)}
+                >
+                  Approve Payment
+                </button>
+              : null}
           </div>
         );
       })}
