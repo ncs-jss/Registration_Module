@@ -22,6 +22,7 @@ const SearchId = () => {
       })
       .catch(err => {
         setres([]);
+        document.getElementById("search-input").value = "";
         toast.add("No Registration found!!!", "fail");
       });
     e.preventDefault();

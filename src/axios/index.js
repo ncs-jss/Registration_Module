@@ -22,7 +22,7 @@ export const axiosGet = (url, data = null, sendToken = true) => {
     }
   };
   if (data) options["params"] = data;
-  if (sendToken) options["headers"]["Authorization"] = getToken();
+  if (sendToken) options["headers"]["Authorization"] = `Bearer ${getToken()}`;
 
   return axios.get(BASE_URL + url, options);
 };
