@@ -28,7 +28,6 @@ const Register = () => {
       .catch(err => {
         toast.add("Something went wrong while registering user", "fail");
         setshowId(false);
-        console.log(err);
       });
     e.preventDefault();
   };
@@ -96,7 +95,7 @@ const Register = () => {
           />
         </div>
         <button type="submit" className="btn btn-primary">
-          Register User
+          Register
         </button>
       </form>;
 };

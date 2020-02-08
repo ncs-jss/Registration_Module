@@ -46,7 +46,7 @@ const SearchId = () => {
           });
       })
       .catch(err => {
-        toast.add("Something went wrong!!!");
+        toast.add("Something went wrong!!!", "fail");
       });
   };
 

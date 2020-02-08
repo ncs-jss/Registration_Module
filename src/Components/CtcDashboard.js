@@ -22,11 +22,9 @@ const CtcDashboard = () => {
         setpassword("");
         setpasswordConfirm("");
         toast.add("User Added Successfully!");
-        console.log(res);
       })
       .catch(err => {
         toast.add("Something went wrong while registering user", "fail");
-        console.log(err);
       });
     e.preventDefault();
   };

@@ -189,3 +189,14 @@ nav a {
     padding: 4px;
   }
 }
+
+.attendence {
+  padding: 5px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
+  background-color: #28a745;
+}

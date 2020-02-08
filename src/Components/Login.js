@@ -19,7 +19,6 @@ const Login = props => {
       })
       .catch(err => {
         props.setState(0);
-        console.log(err);
       });
   };
 

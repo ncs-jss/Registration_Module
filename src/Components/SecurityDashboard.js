@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useToast } from "../utils/Toast";
 import { axiosGet, axiosPost } from "../axios";
 
+let attendence = 0;
+
 const SecurityDashboard = () => {
   const toast = useToast();
 
@@ -12,11 +14,24 @@ const SecurityDashboard = () => {
   const searchInput = e => {
     axiosGet(`reg/management/${search}`, null, true)
       .then(res => {
+        attendence = 0;
+        Object.keys(res.data.data.registration.entryLog).forEach(item => {
+          const a = new Date();
+          const today = a.getDate();
+          const b = new Date(
+            res.data.data.registration.entryLog[item].createdAt
+          );
+          const marked = b.getDate();
+          if (today === marked) {
+            attendence = 1;
+            return true;
+          }
+        });
         setres(res.data.data.registration);
         document.getElementById("search-input").value = "";
       })
       .catch(err => {
-        console.log(err);
+        toast.add("No Registrations found!!!", "fail");
         setres(null);
       });
     e.preventDefault();
@@ -29,7 +44,7 @@ const SecurityDashboard = () => {
         toast.add("Attendence Marked!!!");
       })
       .catch(err => {
-        console.log(err);
+        toast.add("Failure occured while marking attendence!!!", "fail");
       });
   };
 
@@ -68,14 +83,16 @@ const SecurityDashboard = () => {
               : <p>
                   Temp ID: <span>{res.tempID}</span>
                 </p>}
-            {!Object.keys(res.entryLog).length
+            {!attendence
               ? <button
                   className="btn btn-primary"
                   onClick={() => handleEntryLog(res.zealID)}
                 >
                   Mark Attendence
                 </button>
-              : null}
+              : <div className="attendence" title="attendence already marked">
+                  Marked Present
+                </div>}
           </div>
         : null}
     </div>
