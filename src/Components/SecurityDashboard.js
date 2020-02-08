@@ -40,10 +40,12 @@ const SecurityDashboard = () => {
   const handleEntryLog = zealID => {
     axiosPost(`reg/management/${zealID}`, null, true)
       .then(res => {
+        attendence = 1;
         setres(res.data.data.registration);
         toast.add("Attendence Marked!!!");
       })
       .catch(err => {
+        attendence = 0;
         toast.add("Failure occured while marking attendence!!!", "fail");
       });
   };

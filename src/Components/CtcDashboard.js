@@ -17,10 +17,10 @@ const CtcDashboard = () => {
     const regData = { name, email, password, passwordConfirm };
     axiosPost("users/", regData, true)
       .then(res => {
-        setname("");
-        setemail("");
-        setpassword("");
-        setpasswordConfirm("");
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("confirm-password").value = "";
         toast.add("User Added Successfully!");
       })
       .catch(err => {
@@ -58,6 +58,7 @@ const CtcDashboard = () => {
             <h2 className="text-center mb-3">Register Security Team Member</h2>
             <div className="form-group">
               <input
+                id="name"
                 type="text"
                 className="form-control"
                 placeholder="Name"
@@ -67,6 +68,7 @@ const CtcDashboard = () => {
             </div>
             <div className="form-group">
               <input
+                id="email"
                 type="email"
                 className="form-control"
                 placeholder="Email"
@@ -76,6 +78,7 @@ const CtcDashboard = () => {
             </div>
             <div className="form-group">
               <input
+                id="password"
                 type="password"
                 className="form-control"
                 placeholder="Password"
@@ -85,6 +88,7 @@ const CtcDashboard = () => {
             </div>
             <div className="form-group">
               <input
+                id="confirm-password"
                 type="password"
                 className="form-control"
                 placeholder="Confirm Password"
