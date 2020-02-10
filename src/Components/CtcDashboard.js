@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { axiosPost } from "../axios";
+import { axiosGet, axiosPost } from "../axios";
 import { useToast } from "../utils/Toast";
 import SearchId from "./SearchId";
 
@@ -12,6 +12,8 @@ const CtcDashboard = () => {
   const [password, setpassword] = useState("");
   const [passwordConfirm, setpasswordConfirm] = useState("");
   const [layout, setlayout] = useState(0);
+  const [stats, setstats] = useState([]);
+  const [loading, setloading] = useState(1);
 
   const handleSubmit = e => {
     const regData = { name, email, password, passwordConfirm };
@@ -33,9 +35,34 @@ const CtcDashboard = () => {
     setlayout(value);
   };
 
+  const handleStat = () => {
+    setloading(1);
+    axiosGet("reg/stat/core", null, true)
+      .then(res => {
+        setstats(res.data.data.stats);
+        console.log(stats);
+        setloading(0);
+      })
+      .catch(err => {
+        setloading(-1);
+        toast.add("Error occur while loading stats!!!", "fail");
+      });
+  };
+
+  useEffect(() => {
+    handleStat();
+  }, []);
+
   return (
     <div>
       <div className="text-center">
+        <p>
+          {loading
+            ? loading === -1 ? null : <span>Loading Stats...</span>
+            : !stats.length
+              ? "Amount Due: 0"
+              : `Amount Due: ${stats[0].amount}`}
+        </p>
         <button
           className={`btn ml-1 mr-1 mt-1 mb-1 ${!layout
             ? "btn-outline-info"
@@ -101,7 +128,7 @@ const CtcDashboard = () => {
             </button>
           </form>
         : <div className="mt-3">
-            <SearchId />
+            <SearchId handleStat={handleStat} />
           </div>}
     </div>
   );

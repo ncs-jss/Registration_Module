@@ -63,6 +63,7 @@ const SecurityDashboard = () => {
           className="form-control"
           placeholder="Zeal ID / Mobile / Email"
           onChange={handleChange}
+          required
         />
         <div className="input-group-append">
           <button className="btn btn-outline-info" type="submit">

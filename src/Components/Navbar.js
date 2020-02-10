@@ -29,7 +29,7 @@ const Navbar = ({ state, setState }) => {
           <li>
             {state
               ? <Fragment>
-                  <Link to="/Dashboard">
+                  <Link to="/dashboard">
                     <button className="btn btn-outline-info rounded-pill">
                       Dashboard
                     </button>

@@ -191,14 +191,17 @@ nav a {
 }
 
 .attendence {
-  padding: 5px;
-  border-radius: 4px;
   display: flex;
   justify-content: center;
   font-weight: 500;
   cursor: pointer;
   color: white;
   background-color: #28a745;
+  padding: .375rem .75rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  border: 1px solid transparent;
+  font-weight: 400;
 }
 
 .stat {

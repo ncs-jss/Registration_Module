@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useToast } from "../utils/Toast";
 import { axiosGet, axiosPost } from "../axios";
 
-const SearchId = () => {
+const SearchId = ({ handleStat }) => {
   const toast = useToast();
 
   const [search, setsearch] = useState("");
@@ -34,16 +34,11 @@ const SearchId = () => {
     axiosPost("reg/approve", data, true)
       .then(res => {
         toast.add("Payment Approved!!!");
-        console.log(res);
-        axiosGet(`reg/${search}`)
-          .then(res => {
-            setres(res.data.data.registraions);
-            document.getElementById("search-input").value = "";
-          })
-          .catch(err => {
-            setres([]);
-            toast.add("No Registration found!!!", "fail");
-          });
+        axiosGet(`reg/${search}`).then(res => {
+          setres(res.data.data.registraions);
+          document.getElementById("search-input").value = "";
+        });
+        handleStat();
       })
       .catch(err => {
         toast.add("Something went wrong!!!", "fail");
@@ -59,6 +54,7 @@ const SearchId = () => {
           className="form-control"
           placeholder="Search..."
           onChange={handleChange}
+          required
         />
         <div className="input-group-append">
           <button className="btn btn-outline-info" type="submit">

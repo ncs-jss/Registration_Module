@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { axiosPost } from "../axios";
+import { Redirect } from "react-router-dom";
 
 const Login = props => {
   const [email, setemail] = useState("");
@@ -22,11 +23,9 @@ const Login = props => {
       });
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      props.history.push("/dashboard");
-    }
-  }, []);
+  if (localStorage.getItem("token")) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <div>

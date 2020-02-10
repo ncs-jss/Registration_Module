@@ -72,22 +72,24 @@ const AdminDashboard = () => {
       {!layout
         ? <div className="stats mt-3">
             {loading
-              ? <h3 className="text-center">Loading...</h3>
-              : stats.map((stat, index) => {
-                  return (
-                    <div className="stat" key={index}>
-                      <span>
-                        Name: {stat.name}
-                      </span>
-                      <span>
-                        Email: {stat.email}
-                      </span>
-                      <span>
-                        Approved: {stat.approved}
-                      </span>
-                    </div>
-                  );
-                })}
+              ? <h3 className="text-center">Loading Stats...</h3>
+              : !stats.length
+                ? <h3 className="text-center">No Stats Found!!!</h3>
+                : stats.map((stat, index) => {
+                    return (
+                      <div className="stat" key={index}>
+                        <span>
+                          Name: {stat.name}
+                        </span>
+                        <span>
+                          Email: {stat.email}
+                        </span>
+                        <span>
+                          Approved: {stat.amount}
+                        </span>
+                      </div>
+                    );
+                  })}
           </div>
         : <form className="end-user-form mt-3" onSubmit={handleSubmit}>
             <h2 className="text-center">Register Core Team Member</h2>
