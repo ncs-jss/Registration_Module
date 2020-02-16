@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from "react";
 
+import Recaptcha from "react-recaptcha";
 import { axiosPost } from "../axios";
 import { useToast } from "../utils/Toast";
 
@@ -12,24 +13,41 @@ const Register = () => {
   const [admissionNo, setadmissionNo] = useState("");
   const [showId, setshowId] = useState(false);
   const [resData, setresData] = useState(null);
+  const [isVerified, setisVerified] = useState(false);
+  const [token, settoken] = useState();
 
   const handleSubmit = e => {
-    const regData = { name, email, mobile, admissionNo };
-    axiosPost("reg/", regData, false)
-      .then(res => {
-        toast.add("User Added Successfully!");
-        setname("");
-        setemail("");
-        setmobile("");
-        setadmissionNo("");
-        setresData(res.data.data.data);
-        setshowId(true);
-      })
-      .catch(err => {
-        toast.add("Something went wrong while registering user", "fail");
-        setshowId(false);
-      });
+    if (isVerified) {
+      const regData = { name, email, mobile, admissionNo, token };
+      axiosPost("reg/", regData, false)
+        .then(res => {
+          toast.add("User Added Successfully!");
+          setname("");
+          setemail("");
+          setmobile("");
+          setadmissionNo("");
+          setresData(res.data.data.data);
+          setshowId(true);
+        })
+        .catch(err => {
+          toast.add("Something went wrong while registering user", "fail");
+          setshowId(false);
+        });
+    } else {
+      alert("Please verify that you are human!!!");
+    }
     e.preventDefault();
+  };
+
+  const recaptchaLoaded = () => {
+    // do nothing
+  };
+
+  const verifyCallback = res => {
+    if (res) {
+      settoken(res);
+      setisVerified(true);
+    }
   };
 
   return showId
@@ -92,6 +110,14 @@ const Register = () => {
             placeholder="Admission Number"
             onChange={e => setadmissionNo(e.target.value)}
             required
+          />
+        </div>
+        <div className="mb-2">
+          <Recaptcha
+            sitekey="6LcaVNkUAAAAAK2pmScib75IT507UvcR_in3TsWb"
+            render="explicit"
+            onloadCallback={recaptchaLoaded}
+            verifyCallback={verifyCallback}
           />
         </div>
         <button type="submit" className="btn btn-primary">

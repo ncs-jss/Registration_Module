@@ -40,7 +40,6 @@ const CtcDashboard = () => {
     axiosGet("reg/stat/core", null, true)
       .then(res => {
         setstats(res.data.data.stats);
-        console.log(stats);
         setloading(0);
       })
       .catch(err => {
