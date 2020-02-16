@@ -31,7 +31,7 @@ const SecurityDashboard = () => {
         document.getElementById("search-input").value = "";
       })
       .catch(err => {
-        toast.add("No Registrations found!!!", "fail");
+        toast.add(err.response.data.message, "fail");
         setres(null);
       });
     e.preventDefault();
@@ -46,7 +46,7 @@ const SecurityDashboard = () => {
       })
       .catch(err => {
         attendence = 0;
-        toast.add("Failure occured while marking attendence!!!", "fail");
+        toast.add(err.response.data.message, "fail");
       });
   };
 

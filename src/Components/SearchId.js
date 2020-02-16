@@ -23,7 +23,7 @@ const SearchId = ({ handleStat }) => {
       .catch(err => {
         setres([]);
         document.getElementById("search-input").value = "";
-        toast.add("No Registration found!!!", "fail");
+        toast.add(err.response.data.message, "fail");
       });
     e.preventDefault();
   };
@@ -41,7 +41,7 @@ const SearchId = ({ handleStat }) => {
         handleStat();
       })
       .catch(err => {
-        toast.add("Something went wrong!!!", "fail");
+        toast.add(err.response.data.message, "fail");
       });
   };
 

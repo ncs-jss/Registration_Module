@@ -3,7 +3,11 @@ import React, { useState } from "react";
 import { axiosPost } from "../axios";
 import { Redirect } from "react-router-dom";
 
+import { useToast } from "../utils/Toast";
+
 const Login = props => {
+  const toast = useToast();
+
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
@@ -20,6 +24,7 @@ const Login = props => {
       })
       .catch(err => {
         props.setState(0);
+        toast.add(err.response.data.message, "fail");
       });
   };
 

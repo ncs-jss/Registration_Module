@@ -25,7 +25,7 @@ const AdminDashboard = () => {
         document.getElementById("confirm-password").value = "";
       })
       .catch(err => {
-        toast.add("Something went wrong while registering user", "fail");
+        toast.add(err.response.data.message, "fail");
       });
     e.preventDefault();
   };
@@ -37,7 +37,7 @@ const AdminDashboard = () => {
         setloading(0);
       })
       .catch(err => {
-        toast.add("Error occur while loading stats!!!", "fail");
+        toast.add(err.response.data.message, "fail");
       });
   };
 

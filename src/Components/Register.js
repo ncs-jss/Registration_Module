@@ -1,6 +1,8 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 
-import Recaptcha from "react-recaptcha";
+import { loadReCaptcha } from "react-recaptcha-v3";
+import { ReCaptcha } from "react-recaptcha-v3";
+
 import { axiosPost } from "../axios";
 import { useToast } from "../utils/Toast";
 
@@ -30,17 +32,11 @@ const Register = () => {
           setshowId(true);
         })
         .catch(err => {
-          toast.add("Something went wrong while registering user", "fail");
+          toast.add(err.response.data.message, "fail");
           setshowId(false);
         });
-    } else {
-      alert("Please verify that you are human!!!");
     }
     e.preventDefault();
-  };
-
-  const recaptchaLoaded = () => {
-    // do nothing
   };
 
   const verifyCallback = res => {
@@ -49,6 +45,10 @@ const Register = () => {
       setisVerified(true);
     }
   };
+
+  useEffect(() => {
+    loadReCaptcha("6LfaeNcUAAAAAHVXV9ve3oOK-HZDl-7f_ZAEXq31");
+  }, []);
 
   return showId
     ? <Fragment>
@@ -113,10 +113,9 @@ const Register = () => {
           />
         </div>
         <div className="mb-2">
-          <Recaptcha
-            sitekey="6LcaVNkUAAAAAK2pmScib75IT507UvcR_in3TsWb"
-            render="explicit"
-            onloadCallback={recaptchaLoaded}
+          <ReCaptcha
+            sitekey="6LfaeNcUAAAAAHVXV9ve3oOK-HZDl-7f_ZAEXq31"
+            action="verify_not_robot"
             verifyCallback={verifyCallback}
           />
         </div>

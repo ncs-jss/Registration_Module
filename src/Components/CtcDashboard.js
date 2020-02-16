@@ -26,7 +26,7 @@ const CtcDashboard = () => {
         toast.add("User Added Successfully!");
       })
       .catch(err => {
-        toast.add("Something went wrong while registering user", "fail");
+        toast.add(err.response.data.message, "fail");
       });
     e.preventDefault();
   };
@@ -44,7 +44,7 @@ const CtcDashboard = () => {
       })
       .catch(err => {
         setloading(-1);
-        toast.add("Error occur while loading stats!!!", "fail");
+        toast.add(err.response.data.message, "fail");
       });
   };
 
