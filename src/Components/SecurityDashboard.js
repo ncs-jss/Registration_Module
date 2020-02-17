@@ -31,7 +31,9 @@ const SecurityDashboard = () => {
         document.getElementById("search-input").value = "";
       })
       .catch(err => {
-        toast.add(err.response.data.message, "fail");
+        if (err.response) {
+          toast.add(err.response.data.message, "fail");
+        }
         setres(null);
       });
     e.preventDefault();
@@ -46,7 +48,9 @@ const SecurityDashboard = () => {
       })
       .catch(err => {
         attendence = 0;
-        toast.add(err.response.data.message, "fail");
+        if (err.response) {
+          toast.add(err.response.data.message, "fail");
+        }
       });
   };
 

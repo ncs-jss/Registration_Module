@@ -10,9 +10,11 @@ const Login = props => {
 
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [submitting, setsubmitting] = useState(false);
 
   const handleSubmit = e => {
     e.preventDefault();
+    setsubmitting(true);
     const loginData = { email, password };
     axiosPost("users/login/", loginData, false)
       .then(res => {
@@ -21,10 +23,14 @@ const Login = props => {
         localStorage.setItem("role", role);
         props.setState(1);
         props.history.push("/dashboard");
+        setsubmitting(false);
       })
       .catch(err => {
+        if (err.response) {
+          toast.add(err.response.data.message, "fail");
+        }
         props.setState(0);
-        toast.add(err.response.data.message, "fail");
+        setsubmitting(false);
       });
   };
 
@@ -54,8 +60,16 @@ const Login = props => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-info">
-          Login
+        <button
+          type="submit"
+          className="btn btn-info submit-buttons"
+          disabled={submitting ? true : false}
+        >
+          {!submitting
+            ? "Register"
+            : <div className="spinner-border text-light" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>}
         </button>
       </form>
     </div>

@@ -222,3 +222,13 @@ nav a {
 .stat:hover {
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
 }
+
+.submit-buttons {
+  width: 130px;
+  height: 40px;
+  padding: 4px;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

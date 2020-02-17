@@ -17,23 +17,25 @@ const Register = () => {
   const [resData, setresData] = useState(null);
   const [isVerified, setisVerified] = useState(false);
   const [token, settoken] = useState();
+  const [submitting, setsubmitting] = useState(false);
 
   const handleSubmit = e => {
     if (isVerified) {
+      setsubmitting(true);
       const regData = { name, email, mobile, admissionNo, token };
       axiosPost("reg/", regData, false)
         .then(res => {
           toast.add("User Added Successfully!");
-          setname("");
-          setemail("");
-          setmobile("");
-          setadmissionNo("");
           setresData(res.data.data.data);
           setshowId(true);
+          setsubmitting(false);
         })
         .catch(err => {
-          toast.add(err.response.data.message, "fail");
+          if (err.response) {
+            toast.add(err.response.data.message, "fail");
+          }
           setshowId(false);
+          setsubmitting(false);
         });
     }
     e.preventDefault();
@@ -119,8 +121,16 @@ const Register = () => {
             verifyCallback={verifyCallback}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Register
+        <button
+          type="submit"
+          className="btn btn-primary submit-buttons"
+          disabled={submitting ? true : false}
+        >
+          {!submitting
+            ? "Register"
+            : <div className="spinner-border text-light" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>}
         </button>
       </form>;
 };

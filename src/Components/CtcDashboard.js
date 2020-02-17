@@ -14,8 +14,10 @@ const CtcDashboard = () => {
   const [layout, setlayout] = useState(0);
   const [stats, setstats] = useState([]);
   const [loading, setloading] = useState(1);
+  const [submitting, setsubmitting] = useState(false);
 
   const handleSubmit = e => {
+    setsubmitting(true);
     const regData = { name, email, password, passwordConfirm };
     axiosPost("users/", regData, true)
       .then(res => {
@@ -24,9 +26,13 @@ const CtcDashboard = () => {
         document.getElementById("password").value = "";
         document.getElementById("confirm-password").value = "";
         toast.add("User Added Successfully!");
+        setsubmitting(false);
       })
       .catch(err => {
-        toast.add(err.response.data.message, "fail");
+        if (err.response) {
+          toast.add(err.response.data.message, "fail");
+        }
+        setsubmitting(false);
       });
     e.preventDefault();
   };
@@ -43,8 +49,10 @@ const CtcDashboard = () => {
         setloading(0);
       })
       .catch(err => {
+        if (err.response) {
+          toast.add(err.response.data.message, "fail");
+        }
         setloading(-1);
-        toast.add(err.response.data.message, "fail");
       });
   };
 
@@ -122,8 +130,16 @@ const CtcDashboard = () => {
                 onChange={e => setpasswordConfirm(e.target.value)}
               />
             </div>
-            <button type="submit" className="btn btn-primary">
-              Register User
+            <button
+              type="submit"
+              className="btn btn-primary submit-buttons"
+              disabled={submitting ? true : false}
+            >
+              {!submitting
+                ? "Register"
+                : <div className="spinner-border text-light" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>}
             </button>
           </form>
         : <div className="mt-3">

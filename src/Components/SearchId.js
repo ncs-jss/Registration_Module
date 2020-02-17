@@ -21,9 +21,11 @@ const SearchId = ({ handleStat }) => {
         document.getElementById("search-input").value = "";
       })
       .catch(err => {
+        if (err.response) {
+          toast.add(err.response.data.message, "fail");
+        }
         setres([]);
         document.getElementById("search-input").value = "";
-        toast.add(err.response.data.message, "fail");
       });
     e.preventDefault();
   };
@@ -41,7 +43,9 @@ const SearchId = ({ handleStat }) => {
         handleStat();
       })
       .catch(err => {
-        toast.add(err.response.data.message, "fail");
+        if (err.response) {
+          toast.add(err.response.data.message, "fail");
+        }
       });
   };
 
