@@ -10,9 +10,13 @@ const Navbar = ({ state, setState }) => {
 
   return (
     <header>
-      <div className="logo d-flex">
+      <div className="d-flex">
         <Link className="" to="/">
-          Zealicon-2020
+          <img
+            src="https://i.ibb.co/DKcQwp4/Logo-Final.png"
+            alt="Zealicon'20"
+            className="header-logo"
+          />
         </Link>
       </div>
       <input id="nav" type="checkbox" />
@@ -21,7 +25,7 @@ const Navbar = ({ state, setState }) => {
         <ul>
           <li>
             <Link to="/search">
-              <button className="btn btn-outline-info rounded-pill">
+              <button className="btn btn-outline-light rounded-pill">
                 Search
               </button>
             </Link>
@@ -30,19 +34,19 @@ const Navbar = ({ state, setState }) => {
             {state
               ? <Fragment>
                   <Link to="/dashboard">
-                    <button className="btn btn-outline-info rounded-pill">
+                    <button className="btn btn-outline-light rounded-pill">
                       Dashboard
                     </button>
                   </Link>
                   <button
-                    className="btn btn-outline-info rounded-pill"
+                    className="btn btn-outline-light rounded-pill"
                     onClick={logOut}
                   >
                     Logout
                   </button>
                 </Fragment>
               : <Link to="/login">
-                  <button className="btn btn-outline-info rounded-pill">
+                  <button className="btn btn-outline-light rounded-pill">
                     Login
                   </button>
                 </Link>}

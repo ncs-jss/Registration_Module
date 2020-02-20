@@ -63,25 +63,25 @@ const CtcDashboard = () => {
   return (
     <div>
       <div className="text-center">
-        <p>
+        <h3>
           {loading
             ? loading === -1 ? null : <span>Loading Stats...</span>
             : !stats.length
               ? "Amount Due: 0"
               : `Amount Due: ${stats[0].amount}`}
-        </p>
+        </h3>
         <button
           className={`btn ml-1 mr-1 mt-1 mb-1 ${!layout
-            ? "btn-outline-info"
-            : "btn-info"}`}
+            ? "btn-outline-light"
+            : "btn-light"}`}
           onClick={() => handleLayout(0)}
         >
           Search ID
         </button>
         <button
           className={`btn ml-1 mr-1 mt-1 mb-1 ${layout
-            ? "btn-outline-info"
-            : "btn-info"}`}
+            ? "btn-outline-light"
+            : "btn-light"}`}
           onClick={() => handleLayout(1)}
         >
           Register Security Team member
@@ -89,7 +89,7 @@ const CtcDashboard = () => {
       </div>
       {layout
         ? <form className="end-user-form mt-3" onSubmit={handleSubmit}>
-            <h2 className="text-center mb-3">Register Security Team Member</h2>
+            <h3 className="text-center mb-3">Register Security Team Member</h3>
             <div className="form-group">
               <input
                 id="name"
@@ -132,7 +132,7 @@ const CtcDashboard = () => {
             </div>
             <button
               type="submit"
-              className="btn btn-primary submit-buttons"
+              className="btn btn-brown submit-buttons"
               disabled={submitting ? true : false}
             >
               {!submitting

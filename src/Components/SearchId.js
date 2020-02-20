@@ -61,7 +61,7 @@ const SearchId = ({ handleStat }) => {
           required
         />
         <div className="input-group-append">
-          <button className="btn btn-outline-info" type="submit">
+          <button className="btn btn-outline-light" type="submit">
             Search
           </button>
         </div>
@@ -69,25 +69,33 @@ const SearchId = ({ handleStat }) => {
       {res.map((item, index) => {
         return (
           <div className="id-box mt-4" key={index}>
-            <p>
-              Name: <span>{item.name}</span>
-            </p>
-            <p>
-              Email: <span>{item.email}</span>
-            </p>
-            <p>
-              Admission Number: <span>{item.admissionNo}</span>
-            </p>
-            {item.zealID
-              ? <p>
-                  Zeal ID: <span>{item.zealID}</span>
-                </p>
-              : <p>
-                  Temp ID: <span>{item.tempID}</span>
-                </p>}
+            <img
+              src="https://i.ibb.co/DKcQwp4/Logo-Final.png"
+              className="id-logo"
+            />
+            <h4 className="mt-2 mb-2">
+              <span className="font-weight-bolder">
+                {item.name}
+              </span>
+            </h4>
+            <div className="text-left">
+              <p>
+                Email: <span>{item.email}</span>
+              </p>
+              <p>
+                Admission Number: <span>{item.admissionNo}</span>
+              </p>
+              {item.zealID
+                ? <p>
+                    Zeal ID: <span>{item.zealID}</span>
+                  </p>
+                : <p>
+                    Temp ID: <span>{item.tempID}</span>
+                  </p>}
+            </div>
             {localStorage.getItem("role") === "core-team" && !item.zealID
               ? <button
-                  className="btn btn-primary"
+                  className="btn btn-outline-light"
                   onClick={() => approvePayment(item.tempID)}
                 >
                   Approve Payment

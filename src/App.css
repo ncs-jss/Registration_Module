@@ -8,7 +8,61 @@ body {
   margin: 0;
   overflow-x: hidden;
   font-family: proximaNova, sans-serif;
-  height: 100vh;
+  min-height: 100vh;
+  background: url("https://i.ibb.co/YWKmNWc/3.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+form {
+  max-width: 540px;
+  margin: auto;
+}
+
+input {
+  background: #3b2b30bd !important;
+  padding: 10px !important;
+  border: 1px solid #583731 !important;
+  border-radius: 6px !important;
+  color: white !important;
+}
+
+input::placeholder {
+  color: lightgray !important;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(58, 43, 46, 0.56);
+}
+
+h1,
+h2 {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.18ch;
+}
+
+.btn-brown {
+  color: #ffffff;
+  background-color: #3c2b31e0;
+  border-color: #4b3031;
+}
+
+.btn-brown:hover,
+.btn-brown:active {
+  color: #ffffff !important;
+  background-color: #392a30 !important;
+  border-color: #3a2b30 !important;
+}
+
+.btn-brown.disabled,
+.btn-brown:disabled {
+  color: #fff;
+  border-color: #4b3031;
+  background-color: #3c2b31e0;
+  opacity: 0.5;
 }
 
 .toasts-wrapper {
@@ -53,14 +107,23 @@ body {
   color: #fff;
 }
 
+.id-logo {
+  width: 100px;
+}
+
 .id-box {
+  background: #392a30d9;
   padding: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 12px;
   transition: box-shadow 0.4s;
   border: 1px solid rgba(0, 0, 0, .125);
   border-radius: 12px;
+  max-width: 300px;
+  margin: auto;
 }
 
 .id-box:hover {
@@ -75,8 +138,8 @@ body {
 header {
   overflow: hidden;
   color: black;
-  padding: 3px 10px;
-  box-shadow: 0 8px 6px -6px #bcb9b9;
+  padding: 4px 10px;
+  box-shadow: 0 8px 6px -6px #312529;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -85,8 +148,8 @@ header {
 
 header a {
   display: block;
-  margin-right: 8px;
-  color: #3507f3;
+  margin-right: 11px;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -97,32 +160,24 @@ header button {
 
 header a:hover,
 header label:hover {
-  color: #030fd0;
+  color: #fff;
 }
 
 header label {
   float: right;
   padding: 10px 4px;
-  color: #456ef3;
+  color: #fff;
   margin-bottom: 0;
   cursor: pointer;
 }
 
 header label:after {
   content: "\2261";
-  font-size: 1.8em;
-}
-
-.logo {
-  float: left;
-  font-weight: bold;
-  font-size: 1.5rem;
-  display: flex !important;
-  align-items: center;
+  font-size: 2.2rem;
 }
 
 .header-logo {
-  width: 100px;
+  width: 80px;
 }
 
 nav {
@@ -207,8 +262,9 @@ nav a {
 .stat {
   border: 1px solid rgba(0, 0, 0, .125);
   padding: 10px 5px;
-  border-radius: 4px;
+  border-radius: 6px;
   display: flex;
+  background: #7c3816e0;
   justify-content: space-between;
   flex-wrap: wrap;
   margin: 10px;

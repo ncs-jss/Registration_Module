@@ -70,36 +70,44 @@ const SecurityDashboard = () => {
           required
         />
         <div className="input-group-append">
-          <button className="btn btn-outline-info" type="submit">
+          <button className="btn btn-outline-light" type="submit">
             Search
           </button>
         </div>
       </form>
       {res
         ? <div className="id-box mt-4">
-            <p>
-              Name: <span>{res.name}</span>
-            </p>
-            <p>
-              Email: <span>{res.email}</span>
-            </p>
-            {res.zealID
-              ? <p>
-                  Zeal ID: <span>{res.zealID}</span>
-                </p>
-              : <p>
-                  Temp ID: <span>{res.tempID}</span>
-                </p>}
-            {!attendence
-              ? <button
-                  className="btn btn-primary"
-                  onClick={() => handleEntryLog(res.zealID)}
-                >
-                  Mark Attendence
-                </button>
-              : <div className="attendence" title="attendence already marked">
-                  Marked Present
-                </div>}
+            <img
+              src="https://i.ibb.co/DKcQwp4/Logo-Final.png"
+              className="id-logo"
+            />
+            <h4 className="mt-2 mb-2">
+              <span className="font-weight-bolder">
+                {res.name}
+              </span>
+            </h4>
+            <div className="text-left">
+              <p>
+                Email: <span>{res.email}</span>
+              </p>
+              {res.zealID
+                ? <p>
+                    Zeal ID: <span>{res.zealID}</span>
+                  </p>
+                : <p>
+                    Temp ID: <span>{res.tempID}</span>
+                  </p>}
+              {!attendence
+                ? <button
+                    className="btn btn-outline-light"
+                    onClick={() => handleEntryLog(res.zealID)}
+                  >
+                    Mark Attendence
+                  </button>
+                : <div className="attendence" title="attendence already marked">
+                    Marked Present
+                  </div>}
+            </div>
           </div>
         : null}
     </div>

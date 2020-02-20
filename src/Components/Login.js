@@ -62,7 +62,7 @@ const Login = props => {
         </div>
         <button
           type="submit"
-          className="btn btn-info submit-buttons"
+          className="btn btn-brown submit-buttons"
           disabled={submitting ? true : false}
         >
           {!submitting

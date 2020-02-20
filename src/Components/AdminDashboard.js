@@ -63,16 +63,16 @@ const AdminDashboard = () => {
       <div className="text-center">
         <button
           className={`btn ml-1 mr-1 mt-1 mb-1 ${!layout
-            ? "btn-outline-info"
-            : "btn-info"}`}
+            ? "btn-outline-light"
+            : "btn-light"}`}
           onClick={() => handleLayout(0)}
         >
           Stats
         </button>
         <button
           className={`btn ml-1 mr-1 mt-1 mb-1 ${layout
-            ? "btn-outline-info"
-            : "btn-info"}`}
+            ? "btn-outline-light"
+            : "btn-light"}`}
           onClick={() => handleLayout(1)}
         >
           Register Core Team member
@@ -101,7 +101,7 @@ const AdminDashboard = () => {
                   })}
           </div>
         : <form className="end-user-form mt-3" onSubmit={handleSubmit}>
-            <h2 className="text-center">Register Core Team Member</h2>
+            <h3 className="text-center">Register Core Team Member</h3>
             <div className="form-group">
               <input
                 id="name"
@@ -144,7 +144,7 @@ const AdminDashboard = () => {
             </div>
             <button
               type="submit"
-              className="btn btn-primary submit-buttons"
+              className="btn btn-brown submit-buttons"
               disabled={submitting ? true : false}
             >
               {!submitting

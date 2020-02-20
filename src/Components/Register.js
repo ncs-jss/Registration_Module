@@ -75,7 +75,7 @@ const Register = () => {
         </div>
       </Fragment>
     : <form className="end-user-form" onSubmit={handleSubmit}>
-        <h2 className="text-center">Register for Zealicon 2020</h2>
+        <h2 className="text-center">Register</h2>
         <div className="form-group">
           <input
             type="text"
@@ -123,7 +123,7 @@ const Register = () => {
         </div>
         <button
           type="submit"
-          className="btn btn-primary submit-buttons"
+          className="btn btn-brown submit-buttons"
           disabled={submitting ? true : false}
         >
           {!submitting
