@@ -56,7 +56,7 @@ const SearchId = ({ handleStat }) => {
           type="text"
           id="search-input"
           className="form-control"
-          placeholder="Search..."
+          placeholder="Enter Email/Phone/Roll Number"
           onChange={handleChange}
           required
         />
@@ -74,9 +74,7 @@ const SearchId = ({ handleStat }) => {
               className="id-logo"
             />
             <h4 className="mt-2 mb-2">
-              <span className="font-weight-bolder">
-                {item.name}
-              </span>
+              <span className="font-weight-bolder">{item.name}</span>
             </h4>
             <div className="text-left">
               <p>
@@ -85,22 +83,24 @@ const SearchId = ({ handleStat }) => {
               <p>
                 Admission Number: <span>{item.admissionNo}</span>
               </p>
-              {item.zealID
-                ? <p>
-                    Zeal ID: <span>{item.zealID}</span>
-                  </p>
-                : <p>
-                    Temp ID: <span>{item.tempID}</span>
-                  </p>}
+              {item.zealID ? (
+                <p>
+                  Zeal ID: <span>{item.zealID}</span>
+                </p>
+              ) : (
+                <p>
+                  Temp ID: <span>{item.tempID}</span>
+                </p>
+              )}
             </div>
-            {localStorage.getItem("role") === "core-team" && !item.zealID
-              ? <button
-                  className="btn btn-outline-light"
-                  onClick={() => approvePayment(item.tempID)}
-                >
-                  Approve Payment
-                </button>
-              : null}
+            {localStorage.getItem("role") === "core-team" && !item.zealID ? (
+              <button
+                className="btn btn-outline-light"
+                onClick={() => approvePayment(item.tempID)}
+              >
+                Approve Payment
+              </button>
+            ) : null}
           </div>
         );
       })}

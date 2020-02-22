@@ -62,98 +62,98 @@ const AdminDashboard = () => {
     <div>
       <div className="text-center">
         <button
-          className={`btn ml-1 mr-1 mt-1 mb-1 ${!layout
-            ? "btn-outline-light"
-            : "btn-light"}`}
+          className={`btn ml-1 mr-1 mt-1 mb-1 ${
+            !layout ? "btn-outline-light" : "btn-light"
+          }`}
           onClick={() => handleLayout(0)}
         >
           Stats
         </button>
         <button
-          className={`btn ml-1 mr-1 mt-1 mb-1 ${layout
-            ? "btn-outline-light"
-            : "btn-light"}`}
+          className={`btn ml-1 mr-1 mt-1 mb-1 ${
+            layout ? "btn-outline-light" : "btn-light"
+          }`}
           onClick={() => handleLayout(1)}
         >
           Register Core Team member
         </button>
       </div>
-      {!layout
-        ? <div className="stats mt-3">
-            {loading
-              ? <h3 className="text-center">Loading Stats...</h3>
-              : !stats.length
-                ? <h3 className="text-center">No Stats Found!!!</h3>
-                : stats.map((stat, index) => {
-                    return (
-                      <div className="stat" key={index}>
-                        <span>
-                          Name: {stat.name}
-                        </span>
-                        <span>
-                          Email: {stat.email}
-                        </span>
-                        <span>
-                          Approved: {stat.amount}
-                        </span>
-                      </div>
-                    );
-                  })}
+      {!layout ? (
+        <div className="stats mt-3">
+          {loading ? (
+            <h3 className="text-center">Loading Stats...</h3>
+          ) : !stats.length ? (
+            <h3 className="text-center">No Stats Found!!!</h3>
+          ) : (
+            stats.map((stat, index) => {
+              return (
+                <div className="stat" key={index}>
+                  <span>Name: {stat.name}</span>
+                  <span>Email: {stat.email}</span>
+                  <span>Amount Due: {stat.amount}</span>
+                </div>
+              );
+            })
+          )}
+        </div>
+      ) : (
+        <form className="end-user-form mt-3" onSubmit={handleSubmit}>
+          <h3 className="text-center">Register Core Team Member</h3>
+          <div className="form-group">
+            <input
+              id="name"
+              type="text"
+              className="form-control"
+              placeholder="Name"
+              required
+              onChange={e => setname(e.target.value)}
+            />
           </div>
-        : <form className="end-user-form mt-3" onSubmit={handleSubmit}>
-            <h3 className="text-center">Register Core Team Member</h3>
-            <div className="form-group">
-              <input
-                id="name"
-                type="text"
-                className="form-control"
-                placeholder="Name"
-                required
-                onChange={e => setname(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                id="email"
-                type="email"
-                className="form-control"
-                placeholder="Email"
-                required
-                onChange={e => setemail(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                id="password"
-                type="password"
-                className="form-control"
-                placeholder="Password"
-                required
-                onChange={e => setpassword(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                id="confirm-password"
-                type="password"
-                className="form-control"
-                placeholder="Confirm Password"
-                required
-                onChange={e => setpasswordConfirm(e.target.value)}
-              />
-            </div>
-            <button
-              type="submit"
-              className="btn btn-brown submit-buttons"
-              disabled={submitting ? true : false}
-            >
-              {!submitting
-                ? "Register"
-                : <div className="spinner-border text-light" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>}
-            </button>
-          </form>}
+          <div className="form-group">
+            <input
+              id="email"
+              type="email"
+              className="form-control"
+              placeholder="Email"
+              required
+              onChange={e => setemail(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              id="password"
+              type="password"
+              className="form-control"
+              placeholder="Password"
+              required
+              onChange={e => setpassword(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              id="confirm-password"
+              type="password"
+              className="form-control"
+              placeholder="Confirm Password"
+              required
+              onChange={e => setpasswordConfirm(e.target.value)}
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-brown submit-buttons"
+            disabled={submitting ? true : false}
+          >
+            {!submitting ? (
+              "Register"
+            ) : (
+              <div className="spinner-border text-light" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            )}
+          </button>
+        </form>
+      )}
     </div>
   );
 };
