@@ -39,16 +39,16 @@ const App = () => {
                 <Login state={userState} setState={setuserState} {...props} />}
             />
             <Route path="/search" exact component={SearchId} />
-            <PrivateRoute
+            {/* <PrivateRoute
               path="/dashboard"
               component={
                 role === "admin"
                   ? AdminDashboard
                   : role === "core-team" ? CtcDashboard : SecurityDashboard
               }
-            />
+            /> */}
 
-            {/* <Route path="/dashboard" component={CtcDashboard} /> */}
+            <Route path="/dashboard" component={CtcDashboard} />
           </Switch>
         </div>
       </Router>

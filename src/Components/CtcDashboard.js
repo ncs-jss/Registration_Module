@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 import { axiosGet, axiosPost } from "../axios";
 import { useToast } from "../utils/Toast";
@@ -18,6 +18,8 @@ const CtcDashboard = () => {
   // register team states
   const [college, setcollege] = useState("");
   const [phone, setphone] = useState("");
+  const [showID, setshowID] = useState(1);
+  const [resData, setresData] = useState(null);
 
   const handleSubmit = e => {
     setsubmitting(true);
@@ -29,12 +31,15 @@ const CtcDashboard = () => {
         document.getElementById("password").value = "";
         document.getElementById("confirm-password").value = "";
         toast.add("User Added Successfully!");
+        setresData(res.data.data.data);
+        setshowID(true);
         setsubmitting(false);
       })
       .catch(err => {
         if (err.response) {
           toast.add(err.response.data.message, "fail");
         }
+        setshowID(false);
         setsubmitting(false);
       });
     e.preventDefault();
@@ -175,62 +180,84 @@ const CtcDashboard = () => {
             </button>
           </form>
         : layout === 2
-          ? <form className="end-user-form mt-3" onSubmit={registerTeam}>
-              <h3 className="text-center mb-3">Register Team</h3>
-              <div className="form-group">
-                <input
-                  id="college-name"
-                  type="text"
-                  className="form-control"
-                  placeholder="Team Leader's Name"
-                  required
-                  onChange={e => setname(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  id="college-email"
-                  type="email"
-                  className="form-control"
-                  placeholder="Email"
-                  required
-                  onChange={e => setemail(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  id="tel"
-                  type="test"
-                  className="form-control"
-                  placeholder="Phone Number"
-                  minLength="10"
-                  maxLength="10"
-                  required
-                  onChange={e => setphone(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  id="college"
-                  type="text"
-                  className="form-control"
-                  placeholder="College Name"
-                  required
-                  onChange={e => setcollege(e.target.value)}
-                />
-              </div>
-              <button
-                type="submit"
-                className="btn btn-brown submit-buttons"
-                disabled={submitting ? true : false}
-              >
-                {!submitting
-                  ? "Register"
-                  : <div className="spinner-border text-light" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>}
-              </button>
-            </form>
+          ? !showID
+            ? <form className="end-user-form mt-3" onSubmit={registerTeam}>
+                <h3 className="text-center mb-3">Register Team</h3>
+                <div className="form-group">
+                  <input
+                    id="college-name"
+                    type="text"
+                    className="form-control"
+                    placeholder="Team Leader's Name"
+                    required
+                    onChange={e => setname(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    id="college-email"
+                    type="email"
+                    className="form-control"
+                    placeholder="Email"
+                    required
+                    onChange={e => setemail(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    id="tel"
+                    type="test"
+                    className="form-control"
+                    placeholder="Phone Number"
+                    minLength="10"
+                    maxLength="10"
+                    required
+                    onChange={e => setphone(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    id="college"
+                    type="text"
+                    className="form-control"
+                    placeholder="College Name"
+                    required
+                    onChange={e => setcollege(e.target.value)}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="btn btn-brown submit-buttons"
+                  disabled={submitting ? true : false}
+                >
+                  {!submitting
+                    ? "Register"
+                    : <div className="spinner-border text-light" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </div>}
+                </button>
+              </form>
+            : <Fragment>
+                <h1 className="text-center">Zeal ID</h1>
+                <div className="id-box">
+                  <p>
+                    Name: <span>{resData.name}</span>
+                  </p>
+                  <p>
+                    Email: <span>{resData.email}</span>
+                  </p>
+                  <p>
+                    Admission Number: <span>{resData.admissionNo}</span>
+                  </p>
+                  {resData.zealID
+                    ? <p>
+                        Zeal ID: <span>{resData.zealID}</span>
+                      </p>
+                    : <p>
+                        Temp ID: <span>{resData.tempID}</span>
+                      </p>}
+                </div>
+              </Fragment>
           : <div className="mt-3">
               <SearchId handleStat={handleStat} />
             </div>}
