@@ -47,6 +47,8 @@ const App = () => {
                   : role === "core-team" ? CtcDashboard : SecurityDashboard
               }
             />
+
+            {/* <Route path="/dashboard" component={CtcDashboard} /> */}
           </Switch>
         </div>
       </Router>

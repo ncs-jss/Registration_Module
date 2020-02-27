@@ -15,6 +15,9 @@ const CtcDashboard = () => {
   const [stats, setstats] = useState([]);
   const [loading, setloading] = useState(1);
   const [submitting, setsubmitting] = useState(false);
+  // register team states
+  const [college, setcollege] = useState("");
+  const [phone, setphone] = useState("");
 
   const handleSubmit = e => {
     setsubmitting(true);
@@ -25,6 +28,27 @@ const CtcDashboard = () => {
         document.getElementById("email").value = "";
         document.getElementById("password").value = "";
         document.getElementById("confirm-password").value = "";
+        toast.add("User Added Successfully!");
+        setsubmitting(false);
+      })
+      .catch(err => {
+        if (err.response) {
+          toast.add(err.response.data.message, "fail");
+        }
+        setsubmitting(false);
+      });
+    e.preventDefault();
+  };
+
+  const registerTeam = e => {
+    setsubmitting(true);
+    const regData = { name, email, phone, admissionNo: college };
+    axiosPost("reg/teamreg", regData, true)
+      .then(res => {
+        document.getElementById("college-name").value = "";
+        document.getElementById("college-email").value = "";
+        document.getElementById("college").value = "";
+        document.getElementById("phone").value = "";
         toast.add("User Added Successfully!");
         setsubmitting(false);
       })
@@ -79,15 +103,23 @@ const CtcDashboard = () => {
           Search ID
         </button>
         <button
-          className={`btn ml-1 mr-1 mt-1 mb-1 ${layout
+          className={`btn ml-1 mr-1 mt-1 mb-1 ${layout === 1
             ? "btn-outline-light"
             : "btn-light"}`}
           onClick={() => handleLayout(1)}
         >
           Register Security Team member
         </button>
+        <button
+          className={`btn ml-1 mr-1 mt-1 mb-1 ${layout === 2
+            ? "btn-outline-light"
+            : "btn-light"}`}
+          onClick={() => handleLayout(2)}
+        >
+          Register Team
+        </button>
       </div>
-      {layout
+      {layout === 1
         ? <form className="end-user-form mt-3" onSubmit={handleSubmit}>
             <h3 className="text-center mb-3">Register Security Team Member</h3>
             <div className="form-group">
@@ -142,9 +174,66 @@ const CtcDashboard = () => {
                   </div>}
             </button>
           </form>
-        : <div className="mt-3">
-            <SearchId handleStat={handleStat} />
-          </div>}
+        : layout === 2
+          ? <form className="end-user-form mt-3" onSubmit={registerTeam}>
+              <h3 className="text-center mb-3">Register Team</h3>
+              <div className="form-group">
+                <input
+                  id="college-name"
+                  type="text"
+                  className="form-control"
+                  placeholder="Team Leader's Name"
+                  required
+                  onChange={e => setname(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  id="college-email"
+                  type="email"
+                  className="form-control"
+                  placeholder="Email"
+                  required
+                  onChange={e => setemail(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  id="tel"
+                  type="test"
+                  className="form-control"
+                  placeholder="Phone Number"
+                  minLength="10"
+                  maxLength="10"
+                  required
+                  onChange={e => setphone(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  id="college"
+                  type="text"
+                  className="form-control"
+                  placeholder="College Name"
+                  required
+                  onChange={e => setcollege(e.target.value)}
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn btn-brown submit-buttons"
+                disabled={submitting ? true : false}
+              >
+                {!submitting
+                  ? "Register"
+                  : <div className="spinner-border text-light" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>}
+              </button>
+            </form>
+          : <div className="mt-3">
+              <SearchId handleStat={handleStat} />
+            </div>}
     </div>
   );
 };
