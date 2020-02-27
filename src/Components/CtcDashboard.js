@@ -17,8 +17,8 @@ const CtcDashboard = () => {
   const [submitting, setsubmitting] = useState(false);
   // register team states
   const [college, setcollege] = useState("");
-  const [phone, setphone] = useState("");
-  const [showID, setshowID] = useState(1);
+  const [mobile, setmobile] = useState("");
+  const [showID, setshowID] = useState(0);
   const [resData, setresData] = useState(null);
 
   const handleSubmit = e => {
@@ -47,20 +47,23 @@ const CtcDashboard = () => {
 
   const registerTeam = e => {
     setsubmitting(true);
-    const regData = { name, email, phone, admissionNo: college };
+    const regData = { name, email, mobile, admissionNo: college };
     axiosPost("reg/teamreg", regData, true)
       .then(res => {
         document.getElementById("college-name").value = "";
         document.getElementById("college-email").value = "";
         document.getElementById("college").value = "";
-        document.getElementById("phone").value = "";
+        document.getElementById("tel").value = "";
         toast.add("User Added Successfully!");
+        setresData(res.data.data);
         setsubmitting(false);
+        setshowID(1);
       })
       .catch(err => {
         if (err.response) {
           toast.add(err.response.data.message, "fail");
         }
+        setshowID(0);
         setsubmitting(false);
       });
     e.preventDefault();
@@ -92,13 +95,21 @@ const CtcDashboard = () => {
   return (
     <div>
       <div className="text-center">
-        <h3>
+        <h4>
           {loading
             ? loading === -1 ? null : <span>Loading Stats...</span>
             : !stats.length
               ? "Amount Due: 0"
-              : `Amount Due: ${stats[0].amount}`}
-        </h3>
+              : <Fragment>
+                  <span className="mt-2">
+                    Amount Due: {stats[0].amount} (Solo)
+                  </span>
+                  <br />
+                  <span className="mt-2">
+                    Amount Due: {stats[1].amount} (Team)
+                  </span>
+                </Fragment>}
+        </h4>
         <button
           className={`btn ml-1 mr-1 mt-1 mb-1 ${!layout
             ? "btn-outline-light"
@@ -206,13 +217,13 @@ const CtcDashboard = () => {
                 <div className="form-group">
                   <input
                     id="tel"
-                    type="test"
+                    type="tel"
                     className="form-control"
                     placeholder="Phone Number"
                     minLength="10"
                     maxLength="10"
                     required
-                    onChange={e => setphone(e.target.value)}
+                    onChange={e => setmobile(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
@@ -237,27 +248,28 @@ const CtcDashboard = () => {
                       </div>}
                 </button>
               </form>
-            : <Fragment>
-                <h1 className="text-center">Zeal ID</h1>
-                <div className="id-box">
+            : <div className="id-box mt-4">
+                <img
+                  src="https://i.ibb.co/DKcQwp4/Logo-Final.png"
+                  className="id-logo"
+                />
+                <h4 className="mt-2 mb-2">
+                  <span className="font-weight-bolder">
+                    {name}
+                  </span>
+                </h4>
+                <div className="text-left">
                   <p>
-                    Name: <span>{resData.name}</span>
+                    Email: <span>{email}</span>
                   </p>
                   <p>
-                    Email: <span>{resData.email}</span>
+                    College: <span>{college}</span>
                   </p>
                   <p>
-                    Admission Number: <span>{resData.admissionNo}</span>
+                    Zeal ID: <span>{resData.zealID}</span>
                   </p>
-                  {resData.zealID
-                    ? <p>
-                        Zeal ID: <span>{resData.zealID}</span>
-                      </p>
-                    : <p>
-                        Temp ID: <span>{resData.tempID}</span>
-                      </p>}
                 </div>
-              </Fragment>
+              </div>
           : <div className="mt-3">
               <SearchId handleStat={handleStat} />
             </div>}

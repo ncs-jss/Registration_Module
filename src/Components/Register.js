@@ -55,23 +55,31 @@ const Register = () => {
   return showId
     ? <Fragment>
         <h1 className="text-center">Zeal ID</h1>
-        <div className="id-box">
-          <p>
-            Name: <span>{resData.name}</span>
-          </p>
-          <p>
-            Email: <span>{resData.email}</span>
-          </p>
-          <p>
-            Admission Number: <span>{resData.admissionNo}</span>
-          </p>
-          {resData.zealID
-            ? <p>
-                Zeal ID: <span>{resData.zealID}</span>
-              </p>
-            : <p>
-                Temp ID: <span>{resData.tempID}</span>
-              </p>}
+        <div className="id-box mt-4">
+          <img
+            src="https://i.ibb.co/DKcQwp4/Logo-Final.png"
+            className="id-logo"
+          />
+          <h4 className="mt-2 mb-2">
+            <span className="font-weight-bolder">
+              {resData.name}
+            </span>
+          </h4>
+          <div className="text-left">
+            <p>
+              Email: <span>{resData.email}</span>
+            </p>
+            <p>
+              Admission Number: <span>{resData.admissionNo}</span>
+            </p>
+            {resData.zealID
+              ? <p>
+                  Zeal ID: <span>{resData.zealID}</span>
+                </p>
+              : <p>
+                  Temp ID: <span>{resData.tempID}</span>
+                </p>}
+          </div>
         </div>
       </Fragment>
     : <form className="end-user-form" onSubmit={handleSubmit}>
