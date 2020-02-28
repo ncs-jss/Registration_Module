@@ -52,37 +52,40 @@ const Register = () => {
     loadReCaptcha("6LfaeNcUAAAAAHVXV9ve3oOK-HZDl-7f_ZAEXq31");
   }, []);
 
-  return showId
-    ? <Fragment>
-        <h1 className="text-center">Zeal ID</h1>
-        <div className="id-box mt-4">
-          <img
-            src="https://i.ibb.co/DKcQwp4/Logo-Final.png"
-            className="id-logo"
-          />
-          <h4 className="mt-2 mb-2">
-            <span className="font-weight-bolder">
-              {resData.name}
-            </span>
-          </h4>
-          <div className="text-left">
+  return showId ? (
+    <Fragment>
+      <h1 className="text-center">Zeal ID</h1>
+      <div className="id-box mt-4">
+        <img
+          src="https://i.ibb.co/DKcQwp4/Logo-Final.png"
+          className="id-logo"
+          alt="logo"
+        />
+        <h4 className="mt-2 mb-2">
+          <span className="font-weight-bolder">{resData.name}</span>
+        </h4>
+        <div className="text-left">
+          <p>
+            Email: <span>{resData.email}</span>
+          </p>
+          <p>
+            Admission Number: <span>{resData.admissionNo}</span>
+          </p>
+          {resData.zealID ? (
             <p>
-              Email: <span>{resData.email}</span>
+              Zeal ID: <span>{resData.zealID}</span>
             </p>
+          ) : (
             <p>
-              Admission Number: <span>{resData.admissionNo}</span>
+              Temp ID: <span>{resData.tempID}</span>
             </p>
-            {resData.zealID
-              ? <p>
-                  Zeal ID: <span>{resData.zealID}</span>
-                </p>
-              : <p>
-                  Temp ID: <span>{resData.tempID}</span>
-                </p>}
-          </div>
+          )}
         </div>
-      </Fragment>
-    : <form className="end-user-form" onSubmit={handleSubmit}>
+      </div>
+    </Fragment>
+  ) : (
+    <>
+      <form className="end-user-form" onSubmit={handleSubmit}>
         <h2 className="text-center">Register</h2>
         <div className="form-group">
           <input
@@ -134,13 +137,31 @@ const Register = () => {
           className="btn btn-brown submit-buttons"
           disabled={submitting ? true : false}
         >
-          {!submitting
-            ? "Register"
-            : <div className="spinner-border text-light" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>}
+          {!submitting ? (
+            "Register"
+          ) : (
+            <div className="spinner-border text-light" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          )}
         </button>
-      </form>;
+      </form>
+      <p
+        className="text-white text-center font-weight-bold mt-3"
+        style={{ fontSize: "28px" }}
+      >
+        Team registrations for other Colleges
+        <a
+          href="https://forms.gle/QNWinZ5h3avZahzb9"
+          target="_blank"
+          className="btn btn-primary ml-3"
+          rel="noopener noreferrer"
+        >
+          Register here
+        </a>
+      </p>
+    </>
+  );
 };
 
 export default Register;

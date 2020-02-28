@@ -75,41 +75,44 @@ const SecurityDashboard = () => {
           </button>
         </div>
       </form>
-      {res
-        ? <div className="id-box mt-4">
-            <img
-              src="https://i.ibb.co/DKcQwp4/Logo-Final.png"
-              className="id-logo"
-            />
-            <h4 className="mt-2 mb-2">
-              <span className="font-weight-bolder">
-                {res.name}
-              </span>
-            </h4>
-            <div className="text-left">
+      {res ? (
+        <div className="id-box mt-4">
+          <img
+            src="https://i.ibb.co/DKcQwp4/Logo-Final.png"
+            className="id-logo"
+            alt="logo"
+          />
+          <h4 className="mt-2 mb-2">
+            <span className="font-weight-bolder">{res.name}</span>
+          </h4>
+          <div className="text-left">
+            <p>
+              Email: <span>{res.email}</span>
+            </p>
+            {res.zealID ? (
               <p>
-                Email: <span>{res.email}</span>
+                Zeal ID: <span>{res.zealID}</span>
               </p>
-              {res.zealID
-                ? <p>
-                    Zeal ID: <span>{res.zealID}</span>
-                  </p>
-                : <p>
-                    Temp ID: <span>{res.tempID}</span>
-                  </p>}
-              {!attendence
-                ? <button
-                    className="btn btn-outline-light"
-                    onClick={() => handleEntryLog(res.zealID)}
-                  >
-                    Mark Attendence
-                  </button>
-                : <div className="attendence" title="attendence already marked">
-                    Marked Present
-                  </div>}
-            </div>
+            ) : (
+              <p>
+                Temp ID: <span>{res.tempID}</span>
+              </p>
+            )}
+            {!attendence ? (
+              <button
+                className="btn btn-outline-light"
+                onClick={() => handleEntryLog(res.zealID)}
+              >
+                Mark Attendence
+              </button>
+            ) : (
+              <div className="attendence" title="attendence already marked">
+                Marked Present
+              </div>
+            )}
           </div>
-        : null}
+        </div>
+      ) : null}
     </div>
   );
 };

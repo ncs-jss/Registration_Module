@@ -72,11 +72,10 @@ const SearchId = ({ handleStat }) => {
             <img
               src="https://i.ibb.co/DKcQwp4/Logo-Final.png"
               className="id-logo"
+              alt="logo"
             />
             <h4 className="mt-2 mb-2">
-              <span className="font-weight-bolder">
-                {item.name}
-              </span>
+              <span className="font-weight-bolder">{item.name}</span>
             </h4>
             <div className="text-left">
               <p>
@@ -85,22 +84,24 @@ const SearchId = ({ handleStat }) => {
               <p>
                 Admission Number: <span>{item.admissionNo}</span>
               </p>
-              {item.zealID
-                ? <p>
-                    Zeal ID: <span>{item.zealID}</span>
-                  </p>
-                : <p>
-                    Temp ID: <span>{item.tempID}</span>
-                  </p>}
+              {item.zealID ? (
+                <p>
+                  Zeal ID: <span>{item.zealID}</span>
+                </p>
+              ) : (
+                <p>
+                  Temp ID: <span>{item.tempID}</span>
+                </p>
+              )}
             </div>
-            {localStorage.getItem("role") === "core-team" && !item.zealID
-              ? <button
-                  className="btn btn-outline-light"
-                  onClick={() => approvePayment(item.tempID)}
-                >
-                  Approve Payment
-                </button>
-              : null}
+            {localStorage.getItem("role") === "core-team" && !item.zealID ? (
+              <button
+                className="btn btn-outline-light"
+                onClick={() => approvePayment(item.tempID)}
+              >
+                Approve Payment
+              </button>
+            ) : null}
           </div>
         );
       })}
