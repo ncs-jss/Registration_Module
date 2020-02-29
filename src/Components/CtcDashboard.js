@@ -96,61 +96,125 @@ const CtcDashboard = () => {
     <div>
       <div className="text-center">
         <h4>
-          {loading
-            ? loading === -1 ? null : <span>Loading Stats...</span>
-            : !stats.length
-              ? "Amount Due: 0"
-              : <Fragment>
-                  <span className="mt-2">
-                    Amount Due: {stats[0].amount} (Solo)
-                  </span>
-                  <br />
-                  <span className="mt-2">
-                    Amount Due: {stats[1].amount} (Team)
-                  </span>
-                </Fragment>}
+          {loading ? (
+            loading === -1 ? null : (
+              <span>Loading Stats...</span>
+            )
+          ) : !stats.length ? (
+            "Amount Due: 0"
+          ) : (
+            <Fragment>
+              <span className="mt-2">
+                Amount Due: {stats[0] && stats[0].amount} &nbsp;
+                {stats[0] && stats[0]._id} {" Registeration"}
+              </span>
+              <br />
+              <span className="mt-2">
+                Amount Due: {stats[1] && stats[1].amount} &nbsp;
+                {stats[1] && stats[1]._id} {" Registeration "}
+              </span>
+            </Fragment>
+          )}
         </h4>
         <button
-          className={`btn ml-1 mr-1 mt-1 mb-1 ${!layout
-            ? "btn-outline-light"
-            : "btn-light"}`}
+          className={`btn ml-1 mr-1 mt-1 mb-1 ${
+            !layout ? "btn-outline-light" : "btn-light"
+          }`}
           onClick={() => handleLayout(0)}
         >
           Search ID
         </button>
         <button
-          className={`btn ml-1 mr-1 mt-1 mb-1 ${layout === 1
-            ? "btn-outline-light"
-            : "btn-light"}`}
+          className={`btn ml-1 mr-1 mt-1 mb-1 ${
+            layout === 1 ? "btn-outline-light" : "btn-light"
+          }`}
           onClick={() => handleLayout(1)}
         >
           Register Security Team member
         </button>
         <button
-          className={`btn ml-1 mr-1 mt-1 mb-1 ${layout === 2
-            ? "btn-outline-light"
-            : "btn-light"}`}
+          className={`btn ml-1 mr-1 mt-1 mb-1 ${
+            layout === 2 ? "btn-outline-light" : "btn-light"
+          }`}
           onClick={() => handleLayout(2)}
         >
           Register Team
         </button>
       </div>
-      {layout === 1
-        ? <form className="end-user-form mt-3" onSubmit={handleSubmit}>
-            <h3 className="text-center mb-3">Register Security Team Member</h3>
+      {layout === 1 ? (
+        <form className="end-user-form mt-3" onSubmit={handleSubmit}>
+          <h3 className="text-center mb-3">Register Security Team Member</h3>
+          <div className="form-group">
+            <input
+              id="name"
+              type="text"
+              className="form-control"
+              placeholder="Name"
+              required
+              onChange={e => setname(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              id="email"
+              type="email"
+              className="form-control"
+              placeholder="Email"
+              required
+              onChange={e => setemail(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              id="password"
+              type="password"
+              className="form-control"
+              placeholder="Password"
+              required
+              onChange={e => setpassword(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              id="confirm-password"
+              type="password"
+              className="form-control"
+              placeholder="Confirm Password"
+              required
+              onChange={e => setpasswordConfirm(e.target.value)}
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-brown submit-buttons"
+            disabled={submitting ? true : false}
+          >
+            {!submitting ? (
+              "Register"
+            ) : (
+              <div className="spinner-border text-light" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            )}
+          </button>
+        </form>
+      ) : layout === 2 ? (
+        !showID ? (
+          <form className="end-user-form mt-3" onSubmit={registerTeam}>
+            <h3 className="text-center mb-3">Register Team</h3>
             <div className="form-group">
               <input
-                id="name"
+                id="college-name"
                 type="text"
                 className="form-control"
-                placeholder="Name"
+                placeholder="Team Leader's Name"
                 required
                 onChange={e => setname(e.target.value)}
               />
             </div>
             <div className="form-group">
               <input
-                id="email"
+                id="college-email"
                 type="email"
                 className="form-control"
                 placeholder="Email"
@@ -160,22 +224,24 @@ const CtcDashboard = () => {
             </div>
             <div className="form-group">
               <input
-                id="password"
-                type="password"
+                id="tel"
+                type="tel"
                 className="form-control"
-                placeholder="Password"
+                placeholder="Phone Number"
+                minLength="10"
+                maxLength="10"
                 required
-                onChange={e => setpassword(e.target.value)}
+                onChange={e => setmobile(e.target.value)}
               />
             </div>
             <div className="form-group">
               <input
-                id="confirm-password"
-                type="password"
+                id="college"
+                type="text"
                 className="form-control"
-                placeholder="Confirm Password"
+                placeholder="College Name"
                 required
-                onChange={e => setpasswordConfirm(e.target.value)}
+                onChange={e => setcollege(e.target.value)}
               />
             </div>
             <button
@@ -183,96 +249,42 @@ const CtcDashboard = () => {
               className="btn btn-brown submit-buttons"
               disabled={submitting ? true : false}
             >
-              {!submitting
-                ? "Register"
-                : <div className="spinner-border text-light" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>}
+              {!submitting ? (
+                "Register"
+              ) : (
+                <div className="spinner-border text-light" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              )}
             </button>
           </form>
-        : layout === 2
-          ? !showID
-            ? <form className="end-user-form mt-3" onSubmit={registerTeam}>
-                <h3 className="text-center mb-3">Register Team</h3>
-                <div className="form-group">
-                  <input
-                    id="college-name"
-                    type="text"
-                    className="form-control"
-                    placeholder="Team Leader's Name"
-                    required
-                    onChange={e => setname(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    id="college-email"
-                    type="email"
-                    className="form-control"
-                    placeholder="Email"
-                    required
-                    onChange={e => setemail(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    id="tel"
-                    type="tel"
-                    className="form-control"
-                    placeholder="Phone Number"
-                    minLength="10"
-                    maxLength="10"
-                    required
-                    onChange={e => setmobile(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    id="college"
-                    type="text"
-                    className="form-control"
-                    placeholder="College Name"
-                    required
-                    onChange={e => setcollege(e.target.value)}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="btn btn-brown submit-buttons"
-                  disabled={submitting ? true : false}
-                >
-                  {!submitting
-                    ? "Register"
-                    : <div className="spinner-border text-light" role="status">
-                        <span className="sr-only">Loading...</span>
-                      </div>}
-                </button>
-              </form>
-            : <div className="id-box mt-4">
-                <img
-                  src="https://i.ibb.co/DKcQwp4/Logo-Final.png"
-                  className="id-logo"
-                />
-                <h4 className="mt-2 mb-2">
-                  <span className="font-weight-bolder">
-                    {name}
-                  </span>
-                </h4>
-                <div className="text-left">
-                  <p>
-                    Email: <span>{email}</span>
-                  </p>
-                  <p>
-                    College: <span>{college}</span>
-                  </p>
-                  <p>
-                    Zeal ID: <span>{resData.zealID}</span>
-                  </p>
-                </div>
-              </div>
-          : <div className="mt-3">
-              <SearchId handleStat={handleStat} />
-            </div>}
+        ) : (
+          <div className="id-box mt-4">
+            <img
+              src="https://i.ibb.co/DKcQwp4/Logo-Final.png"
+              className="id-logo"
+            />
+            <h4 className="mt-2 mb-2">
+              <span className="font-weight-bolder">{name}</span>
+            </h4>
+            <div className="text-left">
+              <p>
+                Email: <span>{email}</span>
+              </p>
+              <p>
+                College: <span>{college}</span>
+              </p>
+              <p>
+                Zeal ID: <span>{resData.zealID}</span>
+              </p>
+            </div>
+          </div>
+        )
+      ) : (
+        <div className="mt-3">
+          <SearchId handleStat={handleStat} />
+        </div>
+      )}
     </div>
   );
 };

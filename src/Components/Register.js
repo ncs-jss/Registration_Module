@@ -31,6 +31,8 @@ const Register = () => {
           setsubmitting(false);
         })
         .catch(err => {
+          console.log(err);
+          console.log(err.response);
           if (err.response) {
             toast.add(err.response.data.message, "fail");
           }

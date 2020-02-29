@@ -65,11 +65,13 @@ const Login = props => {
           className="btn btn-brown submit-buttons"
           disabled={submitting ? true : false}
         >
-          {!submitting
-            ? "Register"
-            : <div className="spinner-border text-light" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>}
+          {!submitting ? (
+            "Login"
+          ) : (
+            <div className="spinner-border text-light" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          )}
         </button>
       </form>
     </div>
