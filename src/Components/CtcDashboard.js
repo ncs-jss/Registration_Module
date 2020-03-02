@@ -3,6 +3,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { axiosGet, axiosPost } from "../axios";
 import { useToast } from "../utils/Toast";
 import SearchId from "./SearchId";
+import PassChange from "./passchange";
 
 const CtcDashboard = () => {
   const toast = useToast();
@@ -139,6 +140,14 @@ const CtcDashboard = () => {
           onClick={() => handleLayout(2)}
         >
           Register Team
+        </button>
+        <button
+          className={`btn ml-1 mr-1 mt-1 mb-1 ${
+            layout === 3 ? "btn-outline-light" : "btn-light"
+          }`}
+          onClick={() => handleLayout(3)}
+        >
+          Change Password
         </button>
       </div>
       {layout === 1 ? (
@@ -280,10 +289,12 @@ const CtcDashboard = () => {
             </div>
           </div>
         )
-      ) : (
+      ) : layout === 0 ? (
         <div className="mt-3">
           <SearchId handleStat={handleStat} />
         </div>
+      ) : (
+        <PassChange />
       )}
     </div>
   );

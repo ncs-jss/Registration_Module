@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { axiosPost, axiosGet } from "../axios";
 import { useToast } from "../utils/Toast";
-
+import PassChange from "./passchange";
 const AdminDashboard = () => {
   const toast = useToast();
 
@@ -58,12 +58,16 @@ const AdminDashboard = () => {
     handleStat();
   }, []);
 
+  const changePassword = () => {
+    setlayout(2);
+  };
+
   return (
     <div>
       <div className="text-center">
         <button
           className={`btn ml-1 mr-1 mt-1 mb-1 ${
-            !layout ? "btn-outline-light" : "btn-light"
+            layout === 0 ? "btn-outline-light" : "btn-light"
           }`}
           onClick={() => handleLayout(0)}
         >
@@ -71,11 +75,19 @@ const AdminDashboard = () => {
         </button>
         <button
           className={`btn ml-1 mr-1 mt-1 mb-1 ${
-            layout ? "btn-outline-light" : "btn-light"
+            layout === 1 ? "btn-outline-light" : "btn-light"
           }`}
           onClick={() => handleLayout(1)}
         >
           Register Core Team member
+        </button>
+        <button
+          className={`btn ml-1 mr-1 mt-1 mb-1 ${
+            layout === 2 ? "btn-outline-light" : "btn-light"
+          }`}
+          onClick={() => handleLayout(2)}
+        >
+          Change Password
         </button>
       </div>
       {!layout ? (
@@ -96,7 +108,7 @@ const AdminDashboard = () => {
             })
           )}
         </div>
-      ) : (
+      ) : layout === 1 ? (
         <form className="end-user-form mt-3" onSubmit={handleSubmit}>
           <h3 className="text-center">Register Core Team Member</h3>
           <div className="form-group">
@@ -153,6 +165,8 @@ const AdminDashboard = () => {
             )}
           </button>
         </form>
+      ) : (
+        <PassChange />
       )}
     </div>
   );
